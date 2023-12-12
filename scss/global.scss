@@ -1,4 +1,15 @@
-.container{
-  max-width: 1250px;
-  padding: 0 15px;
+@import "reset";
+
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #002DFF;
+  padding: 5px 0;
+  border-radius: 20px;
 }

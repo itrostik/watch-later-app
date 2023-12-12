@@ -1,0 +1,47 @@
+.header{
+  background: rgba(249, 249, 249, 0.94);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.activeCollection, .activeAdd, .activeSearch{
+  background: #002DFF;
+  color: #FFFFFF;
+  svg path{
+    fill: #FFFFFF;
+  }
+}
+
+.collection, .add, .search{
+  padding: 10px;
+  border-radius: 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.left, .right{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  max-width: 193px;
+}
+
+.user{
+  cursor: pointer;
+  img{
+    border-radius: 50%;
+    border: 2px solid #FFFFFF;
+  }
+  .userImage{
+    border: 2px solid #002DFF;
+  }
+}
+
+.miniLogo{
+  cursor: pointer;
+}

@@ -1,0 +1,14 @@
+.main{
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 80px);
+}
+
+.agona {
+  position: absolute;
+  bottom: 20px;
+}
