@@ -125,12 +125,12 @@ export default function Header({ activeItem, setActiveItem }: HeaderProps) {
               className={activeItem === "/account" ? styles.userImage : ""}
             />
           ) : (
-            <Image
-              src={"/default-user.svg"}
-              alt=""
-              width={40}
-              height={40}
-              className={activeItem === "/account" ? styles.userImage : ""}
+            <div
+              className={
+                activeItem === "/account"
+                  ? styles.userBlockActive
+                  : styles.userBlock
+              }
             />
           )}
         </div>

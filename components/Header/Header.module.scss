@@ -33,14 +33,31 @@
 
 .user{
   cursor: pointer;
+  .userBlock{
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.00);
+    background: #DADADA;
+    width: 40px;
+    height: 40px;
+  }
+  .userBlockActive{
+    border-radius: 50%;
+    border: 2px solid #002DFF;
+    background: #DADADA;
+    width: 40px;
+    height: 40px;
+  }
   img{
     border-radius: 50%;
-    border: 2px solid #FFFFFF;
+    border: 2px solid rgba(255, 255, 255, 0.00);
+    object-fit: cover;
   }
   .userImage{
+    object-fit: cover;
     border: 2px solid #002DFF;
   }
 }
+
 
 .miniLogo{
   cursor: pointer;
