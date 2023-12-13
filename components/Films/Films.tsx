@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import _ from "lodash";
 import axios from "axios";
 import { FilmType } from "@/types/filmType";
-
+import Image from "next/image";
 export default function Films() {
   const debounceSearch = _.debounce(search, 50);
   const [films, setFilms] = useState<FilmType[]>([]);
@@ -26,6 +26,7 @@ export default function Films() {
     if (inputRef.current) {
       inputRef.current.value = "";
     }
+    setFilms([]);
   }
 
   return (
@@ -55,14 +56,25 @@ export default function Films() {
           </svg>
         )}
       </label>
-      {/*{films.map((film) => {*/}
-      {/*  return (*/}
-      {/*    <>*/}
-      {/*      <div>{film.name}</div>*/}
-      {/*      <div>{film.description}</div>*/}
-      {/*    </>*/}
-      {/*  );*/}
-      {/*})}*/}
+      <div className={styles.films}>
+        {films.map((film) => {
+          return (
+            <div className={styles.film}>
+              <Image
+                src={film.posterUrl}
+                alt={"film"}
+                width={60}
+                height={90}
+                className={styles.image}
+              />
+              <div className={styles.filmInfo}>
+                <div className={styles.name}>{film.name}</div>
+                <div className={styles.year}>{film.year}</div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { FilmType } from "@/types/filmType";
+import { UserFilmType } from "@/types/userFilmType";
 
 export type UserType = {
   email: string;
@@ -7,6 +7,6 @@ export type UserType = {
   name: string | null;
   description: string | null;
   avatarUrl: string | null;
-  films: FilmType[];
+  films: UserFilmType[];
   genres: [];
 };

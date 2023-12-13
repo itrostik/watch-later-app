@@ -10,6 +10,7 @@ import { FilmType } from "@/types/filmType";
 import ContentLoader from "react-content-loader";
 import { UserType } from "@/types/userType";
 import Link from "next/link";
+import { UserFilmType } from "@/types/userFilmType";
 
 export default function Films() {
   const [activeItem, setActiveItem] = useState("/films");
