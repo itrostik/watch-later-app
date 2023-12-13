@@ -1,0 +1,48 @@
+.film {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  color: var(--label-color-light-primary, #000);
+  text-align: center;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 41px;
+  letter-spacing: 0.374px;
+}
+
+.search{
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+  input{
+    max-width: 500px;
+    width: 100%;
+    padding: 20px 30px 20px 0;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.3);
+  }
+}
+
+.subtitle{
+  color: #000;
+
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: 0.8px;
+}
+
+.reset{
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+}

@@ -17,7 +17,9 @@ export default function Account() {
     <div>
       <Header activeItem={activeItem} setActiveItem={setActiveItem} />
       <div className={styles.account}>
-        <h2 className={styles.username}>{user?.name}</h2>
+        <h2 className={styles.username}>
+          {user?.name ? user.name : user?.email}
+        </h2>
         <div className={styles.description}>{user?.description}</div>
         <div className={styles.avatar}>
           {user?.avatarUrl ? (
@@ -27,15 +29,19 @@ export default function Account() {
           )}
         </div>
         <h3 className={styles.genreTitle}>Любимые жанры</h3>
-        <div className={styles.genres}>
-          {user?.genres.map((genre) => {
-            return (
-              <div key={genre} className={styles.genreBlock}>
-                {genre}
-              </div>
-            );
-          })}
-        </div>
+        {user?.genres && user.genres.length > 0 ? (
+          <div className={styles.genres}>
+            {user?.genres.map((genre) => {
+              return (
+                <div key={genre} className={styles.genreBlock}>
+                  {genre}
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className={styles.genres}>Нет любимых жанров</div>
+        )}
         <Link href={"/account/edit"} className={styles.button}>
           <svg
             xmlns="http://www.w3.org/2000/svg"

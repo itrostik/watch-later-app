@@ -26,7 +26,6 @@
   flex-wrap: wrap;
   max-width: 620px;
   margin: 0 auto;
-  align-items: center;
 }
 
 .film{
@@ -44,4 +43,34 @@
     line-height: 21.449px;
     letter-spacing: -0.093px;
   }
+}
+
+.buttonAdd {
+  color: #002DFF;
+  font-feature-settings: 'clig' off, 'liga' off;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: -0.24px;
+  text-align: center;
+}
+
+.add {
+  color: #000;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: 0.8px;
+  text-align: center;
+}
+
+.filmName{
+  max-width: 140px;
+  color: #000;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 21.449px;
+  letter-spacing: -0.093px;
 }

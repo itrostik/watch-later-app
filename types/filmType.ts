@@ -1,8 +1,10 @@
 export type FilmType = {
-  id: number;
-  name: string;
-  description: string;
-  posterUrl: string;
-  genres: string[];
-  reviews?: number[];
+  film: {
+    id: number;
+    name: string;
+    description: string;
+    posterUrl: string;
+    genres: string[];
+    reviews?: number[];
+  };
 };

@@ -5,7 +5,7 @@ import Image from "next/image";
 import styles from "./page.module.scss";
 import { SubmitHandler, useForm, useWatch } from "react-hook-form";
 import Link from "next/link";
-import axios from "axios";
+import axios, { Axios, AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 
 type Inputs = {
@@ -30,11 +30,15 @@ export default function Login() {
     setIsLoading(true);
     const password = data.password;
     const email = data.email;
-    const user = await axios.post("http://localhost:4444/api/auth/login", {
-      email,
-      password,
-    });
-    if (user.data.message) {
+    try {
+      const user = await axios.post("http://localhost:4444/api/auth/login", {
+        email,
+        password,
+      });
+      localStorage.setItem("user", JSON.stringify(user.data));
+      router.push("/");
+    } catch (error: AxiosError) {
+      console.error(error.response.data.message);
       setError("email", {
         type: "custom",
         message: "неверный логин или пароль",
@@ -43,12 +47,9 @@ export default function Login() {
         type: "custom",
         message: "неверный логин или пароль",
       });
+    } finally {
       setIsLoading(false);
-      return;
     }
-    localStorage.setItem("user", JSON.stringify(user.data));
-    setIsLoading(false);
-    router.push("/");
   };
 
   function reset(nameField: "email" | "password") {

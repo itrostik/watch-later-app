@@ -1,0 +1,134 @@
+.form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.label{
+  max-width: 800px;
+  position: relative;
+  width: 100%;
+}
+.input{
+  width: 100%;
+  padding: 20px 0;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.2);
+  caret-color: #002DFF;
+}
+
+
+.modal{
+  max-width: 800px;
+  background: #FFFFFF;
+  margin: 0 auto;
+  cursor: pointer;
+  color: #000;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: -0.24px;
+}
+
+.button{
+  background: none;
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  max-width: 150px;
+  gap: 10px;
+  width: 100%;
+  border: 2px solid #002DFF;
+  border-radius: 15px;
+  &:hover{
+    background: #abbaff;
+  }
+  span{
+    color: #002DFF;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.336px;
+  }
+}
+
+.input__wrapper {
+  width: 100%;
+  position: relative;
+  margin: 15px 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.input__file {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+}
+
+
+
+.input__file-button-text {
+  color: rgba(60, 60, 67, 0.30);
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 17px;
+  line-height: 22px;
+  letter-spacing: -0.408px;
+}
+
+.input__file-button {
+  &:hover{
+    background: #bbb;
+  }
+  width: 100%;
+  max-width: 230px;
+  background: rgba(242, 242, 242, 0.80);
+  backdrop-filter: blur(27.182817459106445px);
+  color: var(--color);
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  padding: 15px;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+.input__head{
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.input__upload{
+  background: #2a2a2a;
+  max-width: 290px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 10px;
+}
+
+
+.imageBlock{
+  position: relative;
+  max-height: 200px;
+  margin: 0 0 30px 0;
+}
+
+.image{
+  width: 200px;
+  object-fit: contain;
+}
+
+.reset{
+  cursor: pointer;
+
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}

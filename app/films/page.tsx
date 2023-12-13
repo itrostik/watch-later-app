@@ -8,81 +8,45 @@ import axios from "axios";
 import { FilmType } from "@/types/filmType";
 
 import ContentLoader from "react-content-loader";
+import { UserType } from "@/types/userType";
+import Link from "next/link";
 
 export default function Films() {
   const [activeItem, setActiveItem] = useState("/films");
-  const [films, setFilms] = useState<FilmType[] | null>(null);
-  useEffect(() => {
-    const getFilms = async () => {
-      const films = await axios.get<FilmType[]>(
-        "http://localhost:4444/api/film",
-      );
-      console.log(films);
-      setFilms(films.data);
-    };
-    getFilms();
-  }, []);
-
+  const [user, setUser] = useState<UserType>(
+    JSON.parse(localStorage.getItem("user")!),
+  );
   return (
     <div>
       <Header activeItem={activeItem} setActiveItem={setActiveItem} />
       <div className={styles.collection}>
         <h2 className={styles.title}>Коллекция</h2>
-        {films ? (
+        {user.films ? (
           <div className={styles.films}>
-            {films.map((film) => (
+            {user.films.length > 0 ? (
+              user.films.map((film) => (
+                <>
+                  <div key={film.film.name} className={styles.film}>
+                    <img
+                      src={film.film.posterUrl}
+                      alt={"film"}
+                      width={100}
+                      height={160}
+                    />
+                    <span className={styles.filmName}>{film.film.name}</span>
+                  </div>
+                </>
+              ))
+            ) : (
               <>
-                <div key={film.id} className={styles.film}>
-                  <img src={film.posterUrl} alt={"film"} />
-                  <span>{film.name}</span>
+                <div className={styles.add}>
+                  Вы ещё не добавили фильмы в коллекцию
                 </div>
-                <div key={film.id} className={styles.film}>
-                  <img
-                    src={film.posterUrl}
-                    alt={"film"}
-                    width={100}
-                    height={160}
-                  />
-                  <span>{film.name}</span>
-                </div>
-                <div key={film.id} className={styles.film}>
-                  <img
-                    src={film.posterUrl}
-                    alt={"film"}
-                    width={100}
-                    height={160}
-                  />
-                  <span>{film.name}</span>
-                </div>
-                <div key={film.id} className={styles.film}>
-                  <img
-                    src={film.posterUrl}
-                    alt={"film"}
-                    width={100}
-                    height={160}
-                  />
-                  <span>{film.name}</span>
-                </div>
-                <div key={film.id} className={styles.film}>
-                  <img
-                    src={film.posterUrl}
-                    alt={"film"}
-                    width={100}
-                    height={160}
-                  />
-                  <span>{film.name}</span>
-                </div>
-                <div key={film.id} className={styles.film}>
-                  <img
-                    src={film.posterUrl}
-                    alt={"film"}
-                    width={100}
-                    height={160}
-                  />
-                  <span>{film.name}</span>
-                </div>
+                <Link href={"/films/add"} className={styles.buttonAdd}>
+                  Добавить
+                </Link>
               </>
-            ))}
+            )}
           </div>
         ) : (
           <ContentLoader

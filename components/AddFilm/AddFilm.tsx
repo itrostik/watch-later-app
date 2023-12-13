@@ -1,37 +1,35 @@
-"use client";
-
+import styles from "./AddFilm.module.scss";
 import React, { useEffect, useState } from "react";
-import Header from "@/components/Header/Header";
-import styles from "./page.module.scss";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import Select from "react-select";
-import axios from "axios";
-import { UserType } from "@/types/userType";
 import { useRouter } from "next/navigation";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import axios from "axios";
 import { GenreType } from "@/types/genreType";
+import Select from "react-select";
+import { UserType } from "@/types/userType";
 
 type Inputs = {
   name: string;
   description: string;
+  year: string;
   genres: {
     value: string;
     label: string;
   }[];
+  posterUrl: string;
 };
-export default function Account() {
-  const [activeItem, setActiveItem] = useState<string>("/account");
+
+export default function AddFilm() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [genres, setGenres] = useState<GenreType[]>([]);
-  const [imageUrl, setImageUrl] = useState<string | null | undefined>(null);
+  const [posterUrl, setPosterUrl] = useState<string | null | undefined>(null);
   const [isLoadingImage, setIsLoadingImage] = useState<boolean>(false);
-
   const [isSaving, setIsSaving] = useState<boolean>(false);
 
-  const router = useRouter();
-  const [user, setUser] = useState<UserType | null>(
+  const [user, setUser] = useState<UserType>(
     JSON.parse(localStorage.getItem("user")!),
   );
 
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -39,10 +37,8 @@ export default function Account() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  console.log(imageUrl);
   useEffect(() => {
     setIsLoading(true);
-    setImageUrl(user?.avatarUrl);
     const getGenres = async () => {
       const response = await axios.get<GenreType[]>(
         "http://localhost:4444/api/genre",
@@ -57,20 +53,29 @@ export default function Account() {
     setIsSaving(true);
     const name = data.name;
     const description = data.description;
+    const year = data.year;
     const genres: string[] = [];
     data.genres.forEach((genre) => {
       genres.push(genre.value);
     });
-    const updatedUser = await axios.put("http://localhost:4444/api/users", {
-      email: JSON.parse(localStorage.getItem("user")!).email,
+    console.log(name, description, year, genres, posterUrl);
+    const addedFilm = await axios.post("http://localhost:4444/api/film/add", {
       name,
       description,
       genres,
-      avatarUrl: imageUrl ? imageUrl : null,
+      posterUrl,
+      year,
+      reviews: [],
+    });
+    const updatedUser = await axios.patch("http://localhost:4444/api/users", {
+      film: addedFilm.data,
+      email: user.email,
+      watched: false,
+      review: null,
     });
     localStorage.setItem("user", JSON.stringify(updatedUser.data));
     setIsSaving(false);
-    router.push("/account");
+    router.push("/films");
   };
 
   const handleUpload = async (event) => {
@@ -79,11 +84,11 @@ export default function Account() {
       const formData = new FormData();
       formData.append("image", event.target.files[0]);
       const response = await axios.post(
-        "http://localhost:4444/api/file?folder=users",
+        "http://localhost:4444/api/file?folder=films",
         formData,
       );
       if (response.data) {
-        setImageUrl(`http://localhost:4444${response.data[0].url}`);
+        setPosterUrl(`http://localhost:4444${response.data[0].url}`);
       }
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -93,19 +98,178 @@ export default function Account() {
   };
 
   function reset() {
-    setImageUrl(null);
+    setPosterUrl(null);
   }
 
   return (
     <div>
-      <Header activeItem={activeItem} setActiveItem={setActiveItem} />
       <div className={styles.account}>
-        <h2 className={styles.title}>Профиль</h2>
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+          <label className={styles.label}>
+            <h3>Название</h3>
+            <input
+              type={"text"}
+              className={!errors.name ? styles.input : styles.errorInput}
+              placeholder={"Например, Зеленая миля"}
+              {...register("name", {
+                required: {
+                  value: true,
+                  message: "Это поле обязательно для заполнение",
+                },
+              })}
+            />
+          </label>
+          {errors.name && (
+            <span className={styles.error}>{errors.name.message}</span>
+          )}
+          <label className={styles.label}>
+            <h3>Год</h3>
+            <input
+              type={"text"}
+              className={!errors.year ? styles.input : styles.errorInput}
+              placeholder={"Укажите год выхода фильма"}
+              {...register("year", {
+                required: {
+                  value: true,
+                  message: "Это поле обязательно для заполнение",
+                },
+              })}
+            />
+          </label>
+          {errors.year && (
+            <span className={styles.error}>{errors.year.message}</span>
+          )}
+          <label className={styles.label}>
+            <h3>Описание</h3>
+            <input
+              type={"text"}
+              className={!errors.description ? styles.input : styles.errorInput}
+              placeholder={"Расскажите о фильме (более 30 символов)"}
+              {...register("description", {
+                required: {
+                  value: true,
+                  message: "Это поле обязательно для заполнение",
+                },
+              })}
+            />
+          </label>
+          {errors.description && (
+            <span className={styles.error}>{errors.description.message}</span>
+          )}
+          <div>
+            <h3>Жанр</h3>
+            <Controller
+              control={control}
+              defaultValue={[]}
+              name="genres"
+              render={({ field }) => (
+                <Select
+                  defaultMenuIsOpen
+                  autoFocus
+                  menuIsOpen
+                  className={styles.modal}
+                  classNamePrefix={"react-select"}
+                  styles={{
+                    valueContainer: (baseStyles, state) => ({
+                      ...baseStyles,
+                      cursor: "pointer",
+                      color: "#002DFF",
+                      padding: "10px 0px",
+                      display: "flex",
+                      gap: 5,
+                    }),
+                    control: (baseStyles, state) => ({
+                      borderBottom: "1px solid #000",
+                      marginTop: 15,
+                      width: 800,
+                      display: "flex",
+                    }),
+                    multiValueLabel: (baseStyles, state) => ({}),
+                    multiValue: (baseStyles, state) => ({
+                      color: "#000",
+                      borderRadius: 14,
+                      border: "2px solid #000",
+                      padding: "5px",
+                      display: "flex",
+                      alignItems: "center",
+                      fontSize: 16,
+                      gap: 5,
+                    }),
+                    multiValueRemove: (baseStyles, state) => ({
+                      cursor: "pointer",
+                      ":hover": {
+                        color: "#002DFF",
+                      },
+                      marginTop: 3,
+                    }),
+                    dropdownIndicator: (baseStyles, state) => ({
+                      display: "none",
+                    }),
+                    indicatorSeparator: (baseStyles, state) => ({
+                      display: "none",
+                    }),
+                    clearIndicator: (baseStyles, state) => ({
+                      ...baseStyles,
+                      cursor: "pointer",
+                      ":hover": {
+                        color: "#002DFF",
+                      },
+                    }),
+                    menuList: (baseStyles, state) => ({
+                      cursor: "pointer",
+                      display: "flex",
+                      gap: 10,
+                      flexWrap: "wrap",
+                    }),
+                    menu: (baseStyles, state) => ({
+                      padding: "10px 0px",
+                    }),
+                    option: (baseStyles, state) => ({
+                      borderRadius: 14,
+                      border: "2px solid #000",
+                      cursor: "pointer",
+                      padding: "5px 10px",
+                      ":hover": {
+                        background: "#002DFF",
+                        color: "#ffffff",
+                        border: "2px solid #002DFF",
+                      },
+                    }),
+                  }}
+                  options={genres.map((genre: GenreType) => ({
+                    value: genre.name,
+                    label: genre.name,
+                  }))}
+                  defaultValue={genres.map((genre) => ({
+                    value: genre,
+                    label: genre,
+                  }))}
+                  value={field.value.name}
+                  onChange={(genre: GenreType) => {
+                    field.onChange(genre);
+                  }}
+                  noOptionsMessage={() =>
+                    isLoading ? "Загрузка жанров..." : "Жанры закончились..."
+                  }
+                  isMulti={true}
+                  placeholder={"Выберите жанр фильма из списка"}
+                  theme={(theme) => ({
+                    ...theme,
+                    borderRadius: 0,
+                    colors: {
+                      ...theme.colors,
+                      neutral50: "#b0b0b0", // Placeholder color
+                    },
+                  })}
+                />
+              )}
+            />
+          </div>
           <div className={styles["input__wrapper"]}>
-            {imageUrl ? (
+            <h3>Постер</h3>
+            {posterUrl ? (
               <div className={styles.imageBlock}>
-                <img src={imageUrl} alt="" className={styles.image} />
+                <img src={posterUrl} alt="" className={styles.image} />
                 <div className={styles.reset} onClick={() => reset()}>
                   <img src="/reset.svg" alt="" />
                 </div>
@@ -118,7 +282,7 @@ export default function Account() {
                   id="input__file"
                   className={[styles["input"], styles["input__file"]].join(" ")}
                   onChange={handleUpload}
-                  accept={".jpg, .jpeg, .png, .svg"}
+                  accept={".jpg, .jpeg, .png, .svg, .webp"}
                   disabled={isLoadingImage}
                 />
                 <label
@@ -140,142 +304,6 @@ export default function Account() {
               </div>
             )}
           </div>
-          <label className={styles.label}>
-            <input
-              type={"text"}
-              defaultValue={user?.name ? user.name : ""}
-              className={!errors.name ? styles.input : styles.errorInput}
-              placeholder={"Имя"}
-              {...register("name")}
-            />
-          </label>
-          {errors.name && (
-            <span className={styles.error}>{errors.name.message}</span>
-          )}
-          <label className={styles.label}>
-            <input
-              type={"text"}
-              defaultValue={user?.description ? user.description : ""}
-              className={!errors.description ? styles.input : styles.errorInput}
-              placeholder={"О себе"}
-              {...register("description")}
-            />
-          </label>
-          {errors.description && (
-            <span className={styles.error}>{errors.description.message}</span>
-          )}
-          <Controller
-            control={control}
-            defaultValue={
-              user?.genres.map((genre) => ({
-                value: genre,
-                label: genre,
-              })) || []
-            }
-            name="genres"
-            render={({ field }) => (
-              <Select
-                defaultMenuIsOpen
-                autoFocus
-                menuIsOpen
-                className={styles.modal}
-                classNamePrefix={"react-select"}
-                styles={{
-                  valueContainer: (baseStyles, state) => ({
-                    ...baseStyles,
-                    cursor: "pointer",
-                    color: "#002DFF",
-                    padding: "10px 0px",
-                    display: "flex",
-                    gap: 5,
-                  }),
-                  control: (baseStyles, state) => ({
-                    borderBottom: "1px solid #000",
-                    marginTop: 15,
-                    width: 800,
-                    display: "flex",
-                  }),
-                  multiValueLabel: (baseStyles, state) => ({}),
-                  multiValue: (baseStyles, state) => ({
-                    color: "#000",
-                    borderRadius: 14,
-                    border: "2px solid #000",
-                    padding: "5px",
-                    display: "flex",
-                    alignItems: "center",
-                    fontSize: 16,
-                    gap: 5,
-                  }),
-                  multiValueRemove: (baseStyles, state) => ({
-                    cursor: "pointer",
-                    ":hover": {
-                      color: "#002DFF",
-                    },
-                    marginTop: 3,
-                  }),
-                  dropdownIndicator: (baseStyles, state) => ({
-                    display: "none",
-                  }),
-                  indicatorSeparator: (baseStyles, state) => ({
-                    display: "none",
-                  }),
-                  clearIndicator: (baseStyles, state) => ({
-                    ...baseStyles,
-                    cursor: "pointer",
-                    ":hover": {
-                      color: "#002DFF",
-                    },
-                  }),
-                  menuList: (baseStyles, state) => ({
-                    cursor: "pointer",
-                    display: "flex",
-                    gap: 10,
-                    flexWrap: "wrap",
-                  }),
-                  menu: (baseStyles, state) => ({
-                    padding: "10px 0px",
-                  }),
-                  option: (baseStyles, state) => ({
-                    borderRadius: 14,
-                    border: "2px solid #000",
-                    cursor: "pointer",
-                    padding: "5px 10px",
-                    ":hover": {
-                      background: "#002DFF",
-                      color: "#ffffff",
-                      border: "2px solid #002DFF",
-                    },
-                  }),
-                }}
-                options={genres.map((genre: GenreType) => ({
-                  value: genre.name,
-                  label: genre.name,
-                }))}
-                defaultValue={user?.genres.map((genre) => ({
-                  value: genre,
-                  label: genre,
-                }))}
-                value={field.value.name}
-                onChange={(genre: GenreType) => {
-                  field.onChange(genre);
-                }}
-                noOptionsMessage={() =>
-                  isLoading ? "Загрузка жанров..." : "Жанры закончились..."
-                }
-                isMulti={true}
-                placeholder={"Любимые жанры"}
-                theme={(theme) => ({
-                  ...theme,
-                  borderRadius: 0,
-                  colors: {
-                    ...theme.colors,
-                    neutral50: "#b0b0b0", // Placeholder color
-                  },
-                })}
-              />
-            )}
-          />
-
           {!isSaving ? (
             <button type="submit" className={styles.button}>
               <svg
