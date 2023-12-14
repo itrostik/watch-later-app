@@ -8,4 +8,6 @@ export type UserFilmType = {
     genres: string[];
     reviews?: number[];
   };
+  watched: boolean;
+  review: number | null;
 };

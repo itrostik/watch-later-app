@@ -31,10 +31,13 @@ export default function Login() {
     const password = data.password;
     const email = data.email;
     try {
-      const user = await axios.post("http://localhost:4444/api/auth/login", {
-        email,
-        password,
-      });
+      const user = await axios.post(
+        "http://watch-later.tw1.ru/api/auth/login",
+        {
+          email,
+          password,
+        },
+      );
       localStorage.setItem("user", JSON.stringify(user.data));
       router.push("/");
     } catch (error: AxiosError) {

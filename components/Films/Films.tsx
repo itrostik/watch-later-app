@@ -4,21 +4,33 @@ import _ from "lodash";
 import axios from "axios";
 import { FilmType } from "@/types/filmType";
 import Image from "next/image";
-export default function Films() {
+import { values } from "@/constants/constants";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+export default function Films({
+  setDefaultValue,
+}: {
+  setDefaultValue: React.Dispatch<string>;
+}) {
   const debounceSearch = _.debounce(search, 50);
   const [films, setFilms] = useState<FilmType[]>([]);
   const [isEmpty, setIsEmpty] = useState<boolean>(true);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const router = useRouter();
   async function search(event: React.ChangeEvent<HTMLInputElement>) {
+    setIsLoading(true);
     const name = event.target.value;
     if (name) setIsEmpty(false);
     else setIsEmpty(true);
     const responseFilms = await axios.post<FilmType[]>(
-      `http://localhost:4444/api/film/get`,
+      `http://watch-later.tw1.ru/api/film/get`,
       {
         name: name,
       },
     );
+    setIsLoading(false);
     setFilms(responseFilms.data);
   }
 
@@ -59,7 +71,7 @@ export default function Films() {
       <div className={styles.films}>
         {films.map((film) => {
           return (
-            <div className={styles.film}>
+            <Link href={`/films/${film.id}`} className={styles.film}>
               <Image
                 src={film.posterUrl}
                 alt={"film"}
@@ -71,9 +83,25 @@ export default function Films() {
                 <div className={styles.name}>{film.name}</div>
                 <div className={styles.year}>{film.year}</div>
               </div>
-            </div>
+            </Link>
           );
         })}
+        {!isEmpty && !isLoading && films.length === 0 ? (
+          <div className={styles.filmAdded}>
+            <div className={styles.blockEmpty} />
+            <div className={styles.filmInfo}>
+              <div className={styles.name}>Фильм не найден</div>
+              <div
+                className={styles.added}
+                onClick={() => setDefaultValue(values[1])}
+              >
+                Добавьте его вручную
+              </div>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </>
   );

@@ -42,10 +42,13 @@ export default function Register() {
 
       return;
     }
-    const user = await axios.post("http://localhost:4444/api/auth/register", {
-      email,
-      password,
-    });
+    const user = await axios.post(
+      "http://watch-later.tw1.ru/api/auth/register",
+      {
+        email,
+        password,
+      },
+    );
     localStorage.setItem("user", JSON.stringify(user.data));
     setIsLoading(false);
 

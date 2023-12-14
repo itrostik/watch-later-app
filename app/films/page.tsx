@@ -4,48 +4,76 @@ import { useEffect, useState } from "react";
 import Header from "@/components/Header/Header";
 
 import styles from "./page.module.scss";
-import axios from "axios";
-import { FilmType } from "@/types/filmType";
 
 import ContentLoader from "react-content-loader";
 import { UserType } from "@/types/userType";
 import Link from "next/link";
 import { UserFilmType } from "@/types/userFilmType";
+import RadioButton from "@/components/RadioButton/RadioButton";
+import { filterFilms } from "@/constants/constants";
 
 export default function Films() {
   const [activeItem, setActiveItem] = useState("/films");
+  const [defaultValue, setDefaultValue] = useState(filterFilms[0]);
+  const [films, setFilms] = useState<UserFilmType[] | null>(null);
   const [user, setUser] = useState<UserType>(
     JSON.parse(localStorage.getItem("user")!),
   );
+
+  useEffect(() => {
+    console.log(defaultValue);
+    console.log(user);
+    const filteredFilms = user.films.filter((film) => {
+      if (defaultValue === filterFilms[0]) {
+        return !film.watched;
+      } else {
+        return film.watched;
+      }
+    });
+    console.log(filteredFilms);
+    setFilms(filteredFilms);
+  }, [defaultValue]);
+
   return (
     <div>
       <Header activeItem={activeItem} setActiveItem={setActiveItem} />
       <div className={styles.collection}>
         <h2 className={styles.title}>Коллекция</h2>
-        {user.films ? (
+        <RadioButton
+          defaultValue={defaultValue}
+          setDefaultValue={setDefaultValue}
+          values={filterFilms}
+        />
+        {films ? (
           <div className={styles.films}>
-            {user.films.length > 0 ? (
-              user.films.map((film) => (
-                <>
-                  <div key={film.film.name} className={styles.film}>
-                    <img
-                      src={film.film.posterUrl}
-                      alt={"film"}
-                      width={100}
-                      height={160}
-                    />
-                    <span className={styles.filmName}>{film.film.name}</span>
-                  </div>
-                </>
+            {films.length > 0 ? (
+              films.map((film) => (
+                <Link
+                  href={`/films/${film.film.id}`}
+                  key={film.film.name}
+                  className={styles.film}
+                >
+                  <img
+                    src={film.film.posterUrl}
+                    alt={"film"}
+                    width={100}
+                    height={160}
+                  />
+                  <span className={styles.filmName}>{film.film.name}</span>
+                </Link>
               ))
             ) : (
               <>
                 <div className={styles.add}>
-                  Вы ещё не добавили фильмы в коллекцию
+                  {defaultValue === filterFilms[0]
+                    ? "Здесь фильмов нет..."
+                    : "Не найдено ни одного просмотренного фильма"}
                 </div>
-                <Link href={"/films/add"} className={styles.buttonAdd}>
-                  Добавить
-                </Link>
+                {defaultValue === filterFilms[0] && (
+                  <Link href={"/films/add"} className={styles.buttonAdd}>
+                    Добавить
+                  </Link>
+                )}
               </>
             )}
           </div>

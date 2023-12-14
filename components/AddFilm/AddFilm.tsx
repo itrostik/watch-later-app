@@ -42,7 +42,7 @@ export default function AddFilm() {
     setIsLoading(true);
     const getGenres = async () => {
       const response = await axios.get<GenreType[]>(
-        "http://localhost:4444/api/genre",
+        "http://watch-later.tw1.ru/api/genre",
       );
       setGenres(response.data);
       setIsLoading(false);
@@ -60,20 +60,26 @@ export default function AddFilm() {
       genres.push(genre.value);
     });
     console.log(name, description, year, genres, posterUrl);
-    const addedFilm = await axios.post("http://localhost:4444/api/film/add", {
-      name,
-      description,
-      genres,
-      posterUrl,
-      year,
-      reviews: [],
-    });
-    const updatedUser = await axios.patch("http://localhost:4444/api/users", {
-      film: addedFilm.data,
-      email: user.email,
-      watched: false,
-      review: null,
-    });
+    const addedFilm = await axios.post(
+      "http://watch-later.tw1.ru/api/film/add",
+      {
+        name,
+        description,
+        genres,
+        posterUrl,
+        year,
+        reviews: [],
+      },
+    );
+    const updatedUser = await axios.patch(
+      "http://watch-later.tw1.ru/api/users",
+      {
+        film: addedFilm.data,
+        email: user.email,
+        watched: false,
+        review: null,
+      },
+    );
     localStorage.setItem("user", JSON.stringify(updatedUser.data));
     setIsSaving(false);
     router.push("/films");
@@ -86,11 +92,11 @@ export default function AddFilm() {
       // @ts-ignore
       formData.append("image", event.target.files[0]);
       const response = await axios.post(
-        "http://localhost:4444/api/file?folder=films",
+        "http://watch-later.tw1.ru/api/file?folder=films",
         formData,
       );
       if (response.data) {
-        setPosterUrl(`http://localhost:4444${response.data[0].url}`);
+        setPosterUrl(`http://watch-later.tw1.ru:4444${response.data[0].url}`);
       }
     } catch (error) {
       console.error("Error uploading image:", error);

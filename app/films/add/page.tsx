@@ -22,7 +22,11 @@ export default function Page() {
           setDefaultValue={setDefaultValue}
           values={values}
         />
-        {defaultValue === values[0] ? <Films /> : <AddFilm />}
+        {defaultValue === values[0] ? (
+          <Films setDefaultValue={setDefaultValue} />
+        ) : (
+          <AddFilm />
+        )}
       </div>
     </div>
   );

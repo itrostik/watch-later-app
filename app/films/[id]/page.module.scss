@@ -1,0 +1,123 @@
+.container {
+  max-width: 1200px;
+  padding: 0 15px;
+  margin: 0 auto;
+  display: flex;
+  height: calc(100vh - 200px);
+  align-items: center;
+  justify-content: center;
+}
+
+.film {
+  display: flex;
+  gap: 20px;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.name {
+  color: #181818;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 20px; /* 55.556% */
+  letter-spacing: -0.17px;
+}
+
+.info {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.year {
+  color: #181818;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 16px;
+}
+
+.review {
+  display: flex;
+  padding: 1px 8px 2px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 14px;
+  color: #002DFF;
+  border: 2px solid #002DFF;
+  background: #FFF;
+}
+
+.add {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border: 2px solid #002DFF;
+  color: #002DFF;
+  border-radius: 14px;
+  max-width: 170px;
+
+  &:hover {
+    background: rgba(0, 45, 255, 0.1);
+  }
+}
+
+.description {
+  color: #181818;
+  font-size: 16px;
+  line-height: 16px;
+  max-width: 400px;
+  flex: 1 1 auto;
+}
+
+.genres {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.genre {
+  padding: 5px;
+  border-radius: 14px;
+  color: #000;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: -0.24px;
+  border: 2px solid #181818;
+}
+
+.statusBlock {
+  display: flex;
+  gap: 10px;
+}
+
+.status {
+  cursor: pointer;
+  padding: 8px;
+  background: #DADADA;
+  color: #FFF;
+  border-radius: 14px;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.336px;
+}
+
+.activeStatus {
+  cursor: pointer;
+  padding: 8px;
+  background: #002DFF;
+  color: #FFFFFF;
+  border-radius: 14px;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.336px;
+}
