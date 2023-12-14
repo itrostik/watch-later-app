@@ -73,10 +73,11 @@ export default function Account() {
     router.push("/account");
   };
 
-  const handleUpload = async (event) => {
+  const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     try {
       setIsLoadingImage(true);
       const formData = new FormData();
+      //@ts-ignore
       formData.append("image", event.target.files[0]);
       const response = await axios.post(
         "http://localhost:4444/api/file?folder=users",

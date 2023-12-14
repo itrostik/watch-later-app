@@ -1,11 +1,12 @@
 import styles from "./AddFilm.module.scss";
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
 import { GenreType } from "@/types/genreType";
 import Select from "react-select";
 import { UserType } from "@/types/userType";
+import { FileType } from "next/dist/lib/file-exists";
 
 type Inputs = {
   name: string;
@@ -78,10 +79,11 @@ export default function AddFilm() {
     router.push("/films");
   };
 
-  const handleUpload = async (event) => {
+  const handleUpload = async (event: ChangeEvent<HTMLInputElement>) => {
     try {
       setIsLoadingImage(true);
       const formData = new FormData();
+      // @ts-ignore
       formData.append("image", event.target.files[0]);
       const response = await axios.post(
         "http://localhost:4444/api/file?folder=films",
@@ -170,7 +172,7 @@ export default function AddFilm() {
                   className={styles.modal}
                   classNamePrefix={"react-select"}
                   styles={{
-                    valueContainer: (baseStyles, state) => ({
+                    valueContainer: (baseStyles, _state) => ({
                       ...baseStyles,
                       cursor: "pointer",
                       color: "#002DFF",
@@ -178,14 +180,14 @@ export default function AddFilm() {
                       display: "flex",
                       gap: 5,
                     }),
-                    control: (baseStyles, state) => ({
+                    control: (_baseStyles, _state) => ({
                       borderBottom: "1px solid #000",
                       marginTop: 15,
                       width: 800,
                       display: "flex",
                     }),
-                    multiValueLabel: (baseStyles, state) => ({}),
-                    multiValue: (baseStyles, state) => ({
+                    multiValueLabel: (_baseStyles, _state) => ({}),
+                    multiValue: (_baseStyles, _state) => ({
                       color: "#000",
                       borderRadius: 14,
                       border: "2px solid #000",
@@ -195,36 +197,36 @@ export default function AddFilm() {
                       fontSize: 16,
                       gap: 5,
                     }),
-                    multiValueRemove: (baseStyles, state) => ({
+                    multiValueRemove: (_baseStyles, _state) => ({
                       cursor: "pointer",
                       ":hover": {
                         color: "#002DFF",
                       },
                       marginTop: 3,
                     }),
-                    dropdownIndicator: (baseStyles, state) => ({
+                    dropdownIndicator: (_baseStyles, _state) => ({
                       display: "none",
                     }),
-                    indicatorSeparator: (baseStyles, state) => ({
+                    indicatorSeparator: (_baseStyles, _state) => ({
                       display: "none",
                     }),
-                    clearIndicator: (baseStyles, state) => ({
+                    clearIndicator: (baseStyles, _state) => ({
                       ...baseStyles,
                       cursor: "pointer",
                       ":hover": {
                         color: "#002DFF",
                       },
                     }),
-                    menuList: (baseStyles, state) => ({
+                    menuList: (_baseStyles, _state) => ({
                       cursor: "pointer",
                       display: "flex",
                       gap: 10,
                       flexWrap: "wrap",
                     }),
-                    menu: (baseStyles, state) => ({
+                    menu: (_baseStyles, _state) => ({
                       padding: "10px 0px",
                     }),
-                    option: (baseStyles, state) => ({
+                    option: (_baseStyles, _state) => ({
                       borderRadius: 14,
                       border: "2px solid #000",
                       cursor: "pointer",
