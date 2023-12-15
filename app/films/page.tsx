@@ -18,12 +18,14 @@ export default function Films() {
   const [defaultValue, setDefaultValue] = useState(filterFilms[0]);
   const [films, setFilms] = useState<UserFilmType[] | null>(null);
   const [view, setView] = useState<"Thumbnails" | "List">("Thumbnails");
-  const [user, setUser] = useState<UserType>(
-    JSON.parse(localStorage.getItem("user")!),
+  const [user, setUser] = useState<UserType | null>(
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("user")!)
+      : null,
   );
 
   useEffect(() => {
-    const filteredFilms = user.films.filter((film) => {
+    const filteredFilms = user!.films.filter((film) => {
       if (defaultValue === filterFilms[0]) {
         return !film.watched;
       } else {

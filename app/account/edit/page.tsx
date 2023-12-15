@@ -29,7 +29,9 @@ export default function Account() {
 
   const router = useRouter();
   const [user, setUser] = useState<UserType | null>(
-    JSON.parse(localStorage.getItem("user")!),
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("user")!)
+      : null,
   );
 
   const {
@@ -39,7 +41,6 @@ export default function Account() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  console.log(imageUrl);
   useEffect(() => {
     setIsLoading(true);
     setImageUrl(user?.avatarUrl);

@@ -10,7 +10,9 @@ export default function Account() {
   const [activeItem, setActiveItem] = useState<string>("/account");
 
   const [user, setUser] = useState<UserType | null>(
-    JSON.parse(localStorage.getItem("user")!),
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("user")!)
+      : null,
   );
 
   return (

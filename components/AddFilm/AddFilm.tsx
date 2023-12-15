@@ -26,8 +26,10 @@ export default function AddFilm() {
   const [isLoadingImage, setIsLoadingImage] = useState<boolean>(false);
   const [isSaving, setIsSaving] = useState<boolean>(false);
 
-  const [user, setUser] = useState<UserType>(
-    JSON.parse(localStorage.getItem("user")!),
+  const [user, setUser] = useState<UserType | null>(
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("user")!)
+      : null,
   );
 
   const router = useRouter();
@@ -94,7 +96,7 @@ export default function AddFilm() {
         "http://watch-later.tw1.ru/api/users",
         {
           film: addedFilm.data,
-          email: user.email,
+          email: user!.email,
           watched: false,
           review: null,
         },

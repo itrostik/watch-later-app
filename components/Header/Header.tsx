@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { UserType } from "@/types/userType";
 import { useRouter } from "next/navigation";
+import { type } from "node:os";
 
 type HeaderProps = {
   activeItem: string;
@@ -12,7 +13,7 @@ export default function Header({ activeItem, setActiveItem }: HeaderProps) {
   const [user, setUser] = useState<UserType | null>(null);
   const router = useRouter();
   useEffect(() => {
-    if (localStorage.getItem("user"))
+    if (typeof window !== "undefined" && localStorage.getItem("user"))
       setUser(JSON.parse(localStorage.getItem("user")!));
     else {
       router.push("/auth/login");

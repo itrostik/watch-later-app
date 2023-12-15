@@ -18,8 +18,10 @@ export default function Page() {
   const [isAdded, setIsAdded] = useState<boolean>(false);
   const [activeReview, setActiveReview] = useState<number>(0);
   const router = useRouter();
-  const [user, setUser] = useState<UserType>(
-    JSON.parse(localStorage.getItem("user")!),
+  const [user, setUser] = useState<UserType | null>(
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("user")!)
+      : null,
   );
   useEffect(() => {
     const getFilm = async () => {
@@ -34,7 +36,7 @@ export default function Page() {
           },
         );
         setFilm(response.data);
-        const userFilm = user.films.find(
+        const userFilm = user!.films.find(
           (film) => film.film.id === response.data.id,
         );
         if (userFilm) {
@@ -53,7 +55,7 @@ export default function Page() {
     let newUserFilms = [];
     if (defaultValue === statusFilm[0]) {
       setDefaultValue(statusFilm[1]);
-      newUserFilms = user.films.map((filmItem) => {
+      newUserFilms = user!.films.map((filmItem) => {
         if (filmItem.film.id === film?.id) {
           filmItem.watched = true;
         }
@@ -61,7 +63,7 @@ export default function Page() {
       });
     } else {
       setDefaultValue(statusFilm[0]);
-      newUserFilms = user.films.map((filmItem) => {
+      newUserFilms = user!.films.map((filmItem) => {
         if (filmItem.film.id === film?.id) {
           filmItem.watched = false;
         }
@@ -72,7 +74,7 @@ export default function Page() {
       "http://watch-later.tw1.ru/api/users/film",
       {
         films: newUserFilms,
-        email: user.email,
+        email: user!.email,
       },
     );
     localStorage.setItem("user", JSON.stringify(updatedUser.data));
@@ -97,7 +99,7 @@ export default function Page() {
         },
       );
 
-      const newUserFilms = user.films.map((filmItem) => {
+      const newUserFilms = user!.films.map((filmItem) => {
         if (filmItem.film.id === film?.id) {
           return {
             film: {
@@ -113,7 +115,7 @@ export default function Page() {
         "http://watch-later.tw1.ru/api/users/film",
         {
           films: newUserFilms,
-          email: user.email,
+          email: user!.email,
         },
       );
       localStorage.setItem("user", JSON.stringify(updatedUser.data));
@@ -125,7 +127,7 @@ export default function Page() {
       "http://watch-later.tw1.ru/api/users",
       {
         film: film,
-        email: user.email,
+        email: user!.email,
         watched: false,
         review: null,
       },
