@@ -116,7 +116,7 @@ export default function AddFilm() {
         formData,
       );
       if (response.data) {
-        setPosterUrl(`https://watch-later.tw1.ru${response.data[0].url}`);
+        setPosterUrl(`http://watch-later.tw1.ru:4444${response.data[0].url}`);
       }
       clearErrors("posterUrl");
     } catch (error) {
