@@ -13,9 +13,8 @@ module.exports = {
         pathname: "/*/**",
       },
       {
-        protocol: "http",
+        protocol: "https",
         hostname: "watch-later.tw1.ru",
-        port: "4444",
         pathname: "/*/**",
       },
     ],

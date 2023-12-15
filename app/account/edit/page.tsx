@@ -89,7 +89,7 @@ export default function Account() {
       );
       if (response.data) {
         console.log(response.data);
-        setImageUrl(`http://watch-later.tw1.ru:4444${response.data[0].url}`);
+        setImageUrl(`https://watch-later.tw1.ru${response.data[0].url}`);
       }
     } catch (error) {
       console.error("Error uploading image:", error);
