@@ -1,12 +1,20 @@
 "use client";
 
 import Header from "@/components/Header/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "./page.module.scss";
+import { useRouter } from "next/navigation";
 export default function Home() {
+  const router = useRouter();
   const [activeItem, setActiveItem] = useState("/");
-
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (!localStorage.getItem("user")) {
+        router.push("/auth/login");
+      }
+    }
+  }, []);
   return (
     <main>
       <Header activeItem={activeItem} setActiveItem={setActiveItem} />
