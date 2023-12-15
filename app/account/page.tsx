@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Header from "@/components/Header/Header";
 import styles from "./page.module.scss";
 import { UserType } from "@/types/userType";

@@ -6,7 +6,6 @@ import axios from "axios";
 import { GenreType } from "@/types/genreType";
 import Select from "react-select";
 import { UserType } from "@/types/userType";
-import { FileType } from "next/dist/lib/file-exists";
 
 type Inputs = {
   name: string;
@@ -46,7 +45,7 @@ export default function AddFilm() {
     setIsLoading(true);
     const getGenres = async () => {
       const response = await axios.get<GenreType[]>(
-        "http://watch-later.tw1.ru/api/genre",
+        "https://watch-later.tw1.ru/api/genre",
       );
       setGenres(response.data);
       setIsLoading(false);
@@ -82,7 +81,7 @@ export default function AddFilm() {
       setIsSaving(false);
     } else {
       const addedFilm = await axios.post(
-        "http://watch-later.tw1.ru/api/film/add",
+        "https://watch-later.tw1.ru/api/film/add",
         {
           name,
           description,
@@ -93,7 +92,7 @@ export default function AddFilm() {
         },
       );
       const updatedUser = await axios.patch(
-        "http://watch-later.tw1.ru/api/users",
+        "https://watch-later.tw1.ru/api/users",
         {
           film: addedFilm.data,
           email: user!.email,
@@ -113,11 +112,11 @@ export default function AddFilm() {
       // @ts-ignore
       formData.append("image", event.target.files[0]);
       const response = await axios.post(
-        "http://watch-later.tw1.ru/api/file?folder=films",
+        "https://watch-later.tw1.ru/api/file?folder=films",
         formData,
       );
       if (response.data) {
-        setPosterUrl(`http://watch-later.tw1.ru:4444${response.data[0].url}`);
+        setPosterUrl(`https://watch-later.tw1.ru:4444${response.data[0].url}`);
       }
       clearErrors("posterUrl");
     } catch (error) {

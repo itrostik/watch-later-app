@@ -30,7 +30,7 @@ export default function Page() {
       console.log(pathname);
       if (id) {
         const response = await axios.post(
-          "http://watch-later.tw1.ru/api/film/getById",
+          "https://watch-later.tw1.ru/api/film/getById",
           {
             id: +id,
           },
@@ -71,7 +71,7 @@ export default function Page() {
       });
     }
     const updatedUser = await axios.patch(
-      "http://watch-later.tw1.ru/api/users/film",
+      "https://watch-later.tw1.ru/api/users/film",
       {
         films: newUserFilms,
         email: user!.email,
@@ -88,7 +88,7 @@ export default function Page() {
       console.log(film?.reviews, review);
       const updatedFilm = { ...film, reviews: reviewsFilm };
       const responseFilm = await axios.put(
-        "http://watch-later.tw1.ru/api/film/update",
+        "https://watch-later.tw1.ru/api/film/update",
         {
           name: updatedFilm.name,
           description: updatedFilm.description,
@@ -112,7 +112,7 @@ export default function Page() {
       });
 
       const updatedUser = await axios.patch(
-        "http://watch-later.tw1.ru/api/users/film",
+        "https://watch-later.tw1.ru/api/users/film",
         {
           films: newUserFilms,
           email: user!.email,
@@ -124,7 +124,7 @@ export default function Page() {
 
   async function addFilm() {
     const updatedUser = await axios.patch(
-      "http://watch-later.tw1.ru/api/users",
+      "https://watch-later.tw1.ru/api/users",
       {
         film: film,
         email: user!.email,

@@ -3,7 +3,6 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { UserType } from "@/types/userType";
 import { useRouter } from "next/navigation";
-import { type } from "node:os";
 
 type HeaderProps = {
   activeItem: string;

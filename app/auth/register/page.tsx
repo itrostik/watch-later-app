@@ -43,7 +43,7 @@ export default function Register() {
       return;
     }
     const user = await axios.post(
-      "http://watch-later.tw1.ru/api/auth/register",
+      "https://watch-later.tw1.ru/api/auth/register",
       {
         email,
         password,

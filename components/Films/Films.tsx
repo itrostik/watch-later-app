@@ -25,7 +25,7 @@ export default function Films({
     if (name) setIsEmpty(false);
     else setIsEmpty(true);
     const responseFilms = await axios.post<FilmType[]>(
-      `http://watch-later.tw1.ru/api/film/get`,
+      `https://watch-later.tw1.ru/api/film/get`,
       {
         name: name,
       },
