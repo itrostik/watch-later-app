@@ -23,8 +23,6 @@ export default function Films() {
   );
 
   useEffect(() => {
-    console.log(defaultValue);
-    console.log(user);
     const filteredFilms = user.films.filter((film) => {
       if (defaultValue === filterFilms[0]) {
         return !film.watched;
@@ -32,19 +30,21 @@ export default function Films() {
         return film.watched;
       }
     });
-    console.log(filteredFilms);
     setFilms(filteredFilms);
   }, [defaultValue]);
 
   function getReview(film: FilmType) {
+    console.log(film);
     if (film.reviews && film.reviews.length > 0) {
-      return film.reviews?.reduce((accum, number, index) => {
-        accum += number;
-        if (index === film.reviews?.length) {
-          return accum / index;
-        }
-        return accum;
-      });
+      return film.reviews
+        .reduce((accum, number, index) => {
+          accum += number;
+          if (index === film?.reviews?.length! - 1) {
+            return accum / (index + 1);
+          }
+          return accum;
+        }, 0)
+        .toFixed(1);
     }
     return undefined;
   }

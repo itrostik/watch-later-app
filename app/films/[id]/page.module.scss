@@ -6,6 +6,8 @@
   height: calc(100vh - 200px);
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 50px;
 }
 
 .film {
@@ -120,4 +122,21 @@
   font-size: 18px;
   font-weight: 500;
   letter-spacing: -0.336px;
+}
+
+.reviewFilm{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.stars{
+  display: flex;
+  gap: 5px;
+}
+
+.star{
+  cursor: pointer;
 }
