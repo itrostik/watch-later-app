@@ -29,6 +29,7 @@
 }
 
 .film{
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -73,4 +74,55 @@
   font-weight: 600;
   line-height: 21.449px;
   letter-spacing: -0.093px;
+}
+
+.buttons{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.switch{
+  cursor: pointer;
+  margin: 0 0 0 15px;
+  justify-self: flex-end;
+}
+
+.filmsList{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 620px;
+  width: 100%;
+  margin: 40px 0;
+}
+
+.filmList{
+  width: 100%;
+  min-width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #DADADA;
+  padding: 0 0 10px 0;
+  svg{
+    width: 7px;
+    height: 12px;
+  }
+}
+
+.review {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  border-radius: 14px;
+  border: 1px solid #002DFF;
+  background: #FFF;
+  padding: 0 3px;
+  color: #002DFF;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 12px;
+  letter-spacing: -0.24px;
 }
