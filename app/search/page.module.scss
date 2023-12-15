@@ -1,3 +1,9 @@
+.searchBlock{
+  max-width: 500px;
+  margin: 50px auto;
+  min-height: calc(100vh - 300px);
+}
+
 .search{
   max-width: 500px;
   width: 100%;
@@ -5,22 +11,25 @@
   input{
     width: 100%;
     padding: 20px 30px 20px 0;
+    margin: 0 0 20px 0;
     border-bottom: 0.5px solid rgba(0, 0, 0, 0.3);
   }
 }
 
 .subtitle{
   color: #000;
-  font-size: 22px;
+  font-size: 30px;
   font-weight: 700;
   line-height: 28px;
   letter-spacing: 0.8px;
+  text-align: center;
+  margin: 0 0 20px 0;
 }
 
 .reset{
   cursor: pointer;
   position: absolute;
-  top: 0;
+  top: -20px;
   right: 0;
   width: 20px;
 }

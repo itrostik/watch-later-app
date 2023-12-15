@@ -14,7 +14,7 @@ export default function Account() {
   );
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <Header activeItem={activeItem} setActiveItem={setActiveItem} />
       <div className={styles.account}>
         <h2 className={styles.username}>

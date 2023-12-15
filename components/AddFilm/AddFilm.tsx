@@ -36,6 +36,8 @@ export default function AddFilm() {
     handleSubmit,
     control,
     formState: { errors },
+    setError,
+    clearErrors,
   } = useForm<Inputs>();
 
   useEffect(() => {
@@ -50,8 +52,11 @@ export default function AddFilm() {
     getGenres();
   }, []);
 
+  console.log(errors);
+
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     setIsSaving(true);
+    console.log(52);
     const name = data.name;
     const description = data.description;
     const year = data.year;
@@ -59,32 +64,46 @@ export default function AddFilm() {
     data.genres.forEach((genre) => {
       genres.push(genre.value);
     });
-    console.log(name, description, year, genres, posterUrl);
-    const addedFilm = await axios.post(
-      "http://watch-later.tw1.ru/api/film/add",
-      {
-        name,
-        description,
-        genres,
-        posterUrl,
-        year,
-        reviews: [],
-      },
-    );
-    const updatedUser = await axios.patch(
-      "http://watch-later.tw1.ru/api/users",
-      {
-        film: addedFilm.data,
-        email: user.email,
-        watched: false,
-        review: null,
-      },
-    );
-    localStorage.setItem("user", JSON.stringify(updatedUser.data));
-    setIsSaving(false);
-    router.push("/films");
+    if (!posterUrl) {
+      setError("posterUrl", {
+        type: "custom",
+        message: "Постер должен быть загружен!",
+      });
+    }
+    if (genres.length === 0) {
+      setError("genres", {
+        type: "custom",
+        message: "Выберите хотя бы 1 жанр",
+      });
+    }
+    if (genres.length === 0 || !posterUrl) {
+      setIsSaving(false);
+    } else {
+      const addedFilm = await axios.post(
+        "http://watch-later.tw1.ru/api/film/add",
+        {
+          name,
+          description,
+          genres,
+          posterUrl,
+          year,
+          reviews: [],
+        },
+      );
+      const updatedUser = await axios.patch(
+        "http://watch-later.tw1.ru/api/users",
+        {
+          film: addedFilm.data,
+          email: user.email,
+          watched: false,
+          review: null,
+        },
+      );
+      localStorage.setItem("user", JSON.stringify(updatedUser.data));
+      setIsSaving(false);
+      router.push("/films");
+    }
   };
-
   const handleUpload = async (event: ChangeEvent<HTMLInputElement>) => {
     try {
       setIsLoadingImage(true);
@@ -98,6 +117,7 @@ export default function AddFilm() {
       if (response.data) {
         setPosterUrl(`http://watch-later.tw1.ru:4444${response.data[0].url}`);
       }
+      clearErrors("posterUrl");
     } catch (error) {
       console.error("Error uploading image:", error);
     } finally {
@@ -122,7 +142,7 @@ export default function AddFilm() {
               {...register("name", {
                 required: {
                   value: true,
-                  message: "Это поле обязательно для заполнение",
+                  message: "Это поле обязательно для заполнения",
                 },
               })}
             />
@@ -139,7 +159,7 @@ export default function AddFilm() {
               {...register("year", {
                 required: {
                   value: true,
-                  message: "Это поле обязательно для заполнение",
+                  message: "Это поле обязательно для заполнения",
                 },
               })}
             />
@@ -156,7 +176,7 @@ export default function AddFilm() {
               {...register("description", {
                 required: {
                   value: true,
-                  message: "Это поле обязательно для заполнение",
+                  message: "Это поле обязательно для заполнения",
                 },
               })}
             />
@@ -173,11 +193,11 @@ export default function AddFilm() {
               render={({ field }) => (
                 <Select
                   defaultMenuIsOpen
-                  autoFocus
                   menuIsOpen
                   className={styles.modal}
                   classNamePrefix={"react-select"}
                   styles={{
+                    //@ts-ignore
                     valueContainer: (baseStyles, _state) => ({
                       ...baseStyles,
                       cursor: "pointer",
@@ -216,6 +236,7 @@ export default function AddFilm() {
                     indicatorSeparator: (_baseStyles, _state) => ({
                       display: "none",
                     }),
+                    //@ts-ignore
                     clearIndicator: (baseStyles, _state) => ({
                       ...baseStyles,
                       cursor: "pointer",
@@ -252,7 +273,9 @@ export default function AddFilm() {
                     value: genre,
                     label: genre,
                   }))}
+                  //@ts-ignore
                   value={field.value.name}
+                  //@ts-ignore
                   onChange={(genre: GenreType) => {
                     field.onChange(genre);
                   }}
@@ -272,6 +295,9 @@ export default function AddFilm() {
                 />
               )}
             />
+            {errors.genres && (
+              <span className={styles.error}>{errors.genres.message}</span>
+            )}
           </div>
           <div className={styles["input__wrapper"]}>
             <h3>Постер</h3>
@@ -309,6 +335,11 @@ export default function AddFilm() {
                     {!isLoadingImage ? "Загрузить фото" : "Загрузка..."}
                   </span>
                 </label>
+                {errors.posterUrl && (
+                  <span className={styles.error}>
+                    {errors.posterUrl.message}
+                  </span>
+                )}
               </div>
             )}
           </div>

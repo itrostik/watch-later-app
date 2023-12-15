@@ -40,6 +40,7 @@ export default function Login() {
       );
       localStorage.setItem("user", JSON.stringify(user.data));
       router.push("/");
+      // @ts-ignore
     } catch (error: AxiosError) {
       console.error(error.response.data.message);
       setError("email", {
@@ -82,6 +83,7 @@ export default function Login() {
         height={42}
         draggable={false}
         priority
+        className={styles.logo}
       />
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <label className={styles.label}>

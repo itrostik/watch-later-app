@@ -178,11 +178,11 @@ export default function Account() {
             render={({ field }) => (
               <Select
                 defaultMenuIsOpen
-                autoFocus
                 menuIsOpen
                 className={styles.modal}
                 classNamePrefix={"react-select"}
                 styles={{
+                  // @ts-ignore
                   valueContainer: (baseStyles, state) => ({
                     ...baseStyles,
                     cursor: "pointer",
@@ -221,6 +221,7 @@ export default function Account() {
                   indicatorSeparator: (baseStyles, state) => ({
                     display: "none",
                   }),
+                  // @ts-ignore
                   clearIndicator: (baseStyles, state) => ({
                     ...baseStyles,
                     cursor: "pointer",
@@ -257,7 +258,9 @@ export default function Account() {
                   value: genre,
                   label: genre,
                 }))}
+                // @ts-ignore
                 value={field.value.name}
+                // @ts-ignore
                 onChange={(genre: GenreType) => {
                   field.onChange(genre);
                 }}

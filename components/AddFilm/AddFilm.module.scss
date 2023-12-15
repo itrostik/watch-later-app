@@ -17,6 +17,13 @@
   caret-color: #002DFF;
 }
 
+.errorInput {
+  caret-color: #EB5757;
+  color: #EB5757;
+  width: 100%;
+  padding: 20px 0;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.2);
+}
 
 .modal{
   max-width: 800px;
@@ -127,8 +134,18 @@
 
 .reset{
   cursor: pointer;
-
   position: absolute;
   top: 5px;
   right: 5px;
+}
+
+.error {
+  color: #EB5757;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: -0.078px;
+  align-self: flex-start;
+  margin: -10px 0 0 0;
 }

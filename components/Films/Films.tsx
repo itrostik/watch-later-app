@@ -41,6 +41,22 @@ export default function Films({
     setFilms([]);
   }
 
+  function getReview(film: FilmType) {
+    console.log(film);
+    if (film.reviews && film.reviews.length > 0) {
+      return film.reviews
+        .reduce((accum, number, index) => {
+          accum += number;
+          if (index === film?.reviews?.length! - 1) {
+            return accum / (index + 1);
+          }
+          return accum;
+        }, 0)
+        .toFixed(1);
+    }
+    return undefined;
+  }
+
   return (
     <>
       <h3 className={styles.subtitle}>Название</h3>
@@ -82,6 +98,7 @@ export default function Films({
               <div className={styles.filmInfo}>
                 <div className={styles.name}>{film.name}</div>
                 <div className={styles.year}>{film.year}</div>
+                <div className={styles.review}>{getReview(film)}</div>
               </div>
             </Link>
           );

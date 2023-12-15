@@ -72,10 +72,6 @@ export default function Register() {
       value.length > 0 ? setIsPassword(true) : setIsPassword(false);
     else
       value.length > 0 ? setIsRepeatPassword(true) : setIsRepeatPassword(false);
-
-    if (value.length > 0) {
-      setIsEmail(true);
-    } else setIsEmail(false);
   }
 
   return (

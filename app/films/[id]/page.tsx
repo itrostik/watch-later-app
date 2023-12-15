@@ -14,7 +14,7 @@ export default function Page() {
   const pathname = usePathname();
   const [defaultValue, setDefaultValue] = useState<string>(statusFilm[0]);
   const [film, setFilm] = useState<FilmType | null>(null);
-  const [activeItem, setActiveItem] = useState<string>("/films/add");
+  const [activeItem, setActiveItem] = useState<string>("");
   const [isAdded, setIsAdded] = useState<boolean>(false);
   const [activeReview, setActiveReview] = useState<number>(0);
   const router = useRouter();
@@ -23,7 +23,8 @@ export default function Page() {
   );
   useEffect(() => {
     const getFilm = async () => {
-      const id = pathname[pathname.length - 1];
+      const arrayId = pathname.split("/");
+      const id = arrayId[arrayId.length - 1];
       console.log(pathname);
       if (id) {
         const response = await axios.post(
