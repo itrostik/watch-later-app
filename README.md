@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## То, что написано дальше, желательно прочитать для понимания происходящего.
 
-## Getting Started
+#### Но если всё-таки у вас нет времени, то вот ссылка на сайт:
 
-First, run the development server:
+https://watch-later-agona.vercel.app/
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+#### А вот ссылочка на репозиторий с бэкендом:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+https://github.com/itrostik/watch-later-backend
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## И так, начнём
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Как я понял, нам задали просто сверстать компоненты на реакте, но я таким занимался ещё пару месяцев назад и конечно же мы...
 
-## Learn More
+<blockquote style="display:flex; align-items: center; gap: 10px">
+    Не стоим на месте, развиваем свой навык (Level up)
+    <img alt="LILDRUGHILL" src="https://t2.genius.com/unsafe/680x680/https%3A%2F%2Fimages.genius.com%2F21d882e6bcc99d5e1a117161c5eaa3aa.1000x1000x1.png" width="30" height="30" style="border-radius: 50%">
+</blockquote>
 
-To learn more about Next.js, take a look at the following resources:
+В общем, я решил максимально упороться и попробовать поработать со следующим стэком:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+<div style="display: flex; flex-direction: column; gap: 10px;">
+    <div style="display: flex; align-items: center; gap: 5px">
+<img src="https://www.npmjs.com/npm-avatar/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdmF0YXJVUkwiOiJodHRwczovL3MuZ3JhdmF0YXIuY29tL2F2YXRhci9lZDI1OTU4NzA0MWM1YWI3OWYyNGNiMWUzNDFmMGEzNz9zaXplPTQ5NiZkZWZhdWx0PXJldHJvIn0.hLdG6hXQE4Dfil6090lrDEuGdsHbfQUijpy5RvzXjSg" width="30" alt="nest js"> Nest js. До этого не работал с ним, только с Express.
+</div>
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<div style="display: flex; align-items: center; gap: 5px">
+<img src="https://static-00.iconduck.com/assets.00/next-js-icon-2048x2048-5dqjgeku.png" width="30" alt="nest js"> Next js. Был опыт до этого, в принципе, но не такой как с реактом всё-таки.
+</div>
+<div style="display: flex; align-items: center; gap: 5px">
+<img src="https://cdn-icons-png.flaticon.com/512/5968/5968342.png" width="30" alt="nest js"> PostgreSQL. Не ну а что, мы зря что ли базы данных изучаем?
+</div>
+<div style="display: flex; align-items: center; gap: 5px">
+<img src="https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_light_prisma_icon_130444.png" width="30" alt="nest js"> Prisma. ORM для удобного управления базой данных, до этого только слышал про неё.
+</div>
+<div style="display: flex; align-items: center; gap: 5px">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Logo-ubuntu_cof-orange-hex.svg/1200px-Logo-ubuntu_cof-orange-hex.svg.png" width="30" alt="nest js"> Ubuntu. Cамый прикол в том, что я купил сервер и поднял бэкенд с базой данных туда, используя Ubuntu. Ну и в целом понял, что таким заниматься не очень весело...
+</div>
+</div>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+**В общем, сразу скажу что сделано и что должно работать** (Я очень на это надеюсь, если всё-таки что-то сломалось, напишите мне...)
+
+1. `Регистрация и вход` В целом, реализация этого на бэке простая, ведь я даже JWT не использовал (хотя для других проектов использовал). Решил упростить этот момент, всё-таки основная суть не в этом. Но всё-таки валидация какая-никакая есть. Сделал это с помощью React Hook Form. Ну и конечно, на бэке есть обработка неверных данных.
+2. `Редактирование профиля` После регистрации можно заполнить данные в профиле: установить имя, описание, аватарку и любимые жанры. Здесь кстати использовал React Hook Form в связке с React Select, неплохая практика.
+3. `Поиск фильмов` Фильмы ищутся только из существующих в базе данных. Никакого апи кинопоиска и прочего я не делал. Я просто добавил некоторые фильмы в БД.
+4. `Добавление фильмов в коллекцию` Вы можете добавить уже существующий фильм к себе в коллекцию, либо же вручную добавить фильм, которого нет в БД. Кстати, если будете добавлять свой фильм, то он добавляется в общую таблицу фильмов и будет виден другим пользователям при поиске. 
+5. Статус `просмотрено`/`буду смотреть`. Когда Вы добавляете фильм в коллекцию, можно так же изменить его статус на "просмотрено".
+6. `Оценивание фильма` Можно оценить фильм после добавления в коллекцию. Эти оценки так же сделаны и корректно работают. Если два пользователя поставят фильму 5 и 10, то средняя оценка будет 7.5.
+7. `Переключение отображения фильмов в коллекции` Ну, как в макете было. Либо вариант с постерами (Эскизы - Thumbnails), либо же просто список
+
+Вроде этого всё из основной логики приложения.
+
+**Теперь хочу сказать о том, что я хотел ещё сделать, но у меня не хватило времени для этого, ведь я ещё потратил время на деплой, чтобы Вы могли с кайфом это всё проверить + всё-таки зачёты и экзамены на носу...**
+
+
+1. `Удаление фильмов из коллекции`
+2. `Редактирование добавленных вручную фильмов`
+3. `Возможность изменять свою оценку для фильма`
+4. `Адаптив или мобильную версию сайта`
+5. `Рекомендации фильмов в поиске`
+
+Ну и кстати, если сайт подлагивает, может с серваком проблемы, я там самый дешёвый купил, может лагать в теории, хотя у меня вроде норм в целом.
