@@ -39,6 +39,7 @@ export default function Search() {
       inputRef.current.value = "";
     }
     setFilms([]);
+    setIsEmpty(true);
   }
 
   function getReview(film: FilmType) {
@@ -99,7 +100,11 @@ export default function Search() {
                 <div className={styles.filmInfo}>
                   <div className={styles.name}>{film.name}</div>
                   <div className={styles.year}>{film.year}</div>
-                  <div className={styles.review}>{getReview(film)}</div>
+                  <div className={styles.review}>
+                    {getReview(film) !== undefined
+                      ? getReview(film)
+                      : "Нет оценок"}
+                  </div>
                 </div>
               </Link>
             );
