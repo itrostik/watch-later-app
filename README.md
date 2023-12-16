@@ -22,21 +22,21 @@ https://github.com/itrostik/watch-later-backend
 
 <div style="display: flex; flex-direction: column; gap: 10px;">
     <div style="display: flex; align-items: center; gap: 5px">
-<img src="https://www.npmjs.com/npm-avatar/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdmF0YXJVUkwiOiJodHRwczovL3MuZ3JhdmF0YXIuY29tL2F2YXRhci9lZDI1OTU4NzA0MWM1YWI3OWYyNGNiMWUzNDFmMGEzNz9zaXplPTQ5NiZkZWZhdWx0PXJldHJvIn0.hLdG6hXQE4Dfil6090lrDEuGdsHbfQUijpy5RvzXjSg" width="30" alt="nest js"> Nest js. До этого не работал с ним, только с Express.
+<img src="https://www.npmjs.com/npm-avatar/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdmF0YXJVUkwiOiJodHRwczovL3MuZ3JhdmF0YXIuY29tL2F2YXRhci9lZDI1OTU4NzA0MWM1YWI3OWYyNGNiMWUzNDFmMGEzNz9zaXplPTQ5NiZkZWZhdWx0PXJldHJvIn0.hLdG6hXQE4Dfil6090lrDEuGdsHbfQUijpy5RvzXjSg" width="30" alt="Nest js"> Nest js. До этого не работал с ним, только с Express.
 </div>
 
 
 <div style="display: flex; align-items: center; gap: 5px">
-<img src="https://static-00.iconduck.com/assets.00/next-js-icon-2048x2048-5dqjgeku.png" width="30" alt="nest js"> Next js. Был опыт до этого, в принципе, но не такой как с реактом всё-таки.
+<img src="https://static-00.iconduck.com/assets.00/next-js-icon-2048x2048-5dqjgeku.png" width="30" alt="Next js"> Next js. Был опыт до этого, в принципе, но не такой как с реактом всё-таки.
 </div>
 <div style="display: flex; align-items: center; gap: 5px">
-<img src="https://cdn-icons-png.flaticon.com/512/5968/5968342.png" width="30" alt="nest js"> PostgreSQL. Не ну а что, мы зря что ли базы данных изучаем?
+<img src="https://cdn-icons-png.flaticon.com/512/5968/5968342.png" width="30" alt="PostgreSQL"> PostgreSQL. Не ну а что, мы зря что ли базы данных изучаем?
 </div>
 <div style="display: flex; align-items: center; gap: 5px">
-<img src="https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_light_prisma_icon_130444.png" width="30" alt="nest js"> Prisma. ORM для удобного управления базой данных, до этого только слышал про неё.
+<img src="https://icons.veryicon.com/png/o/business/vscode-program-item-icon/prisma.png" width="30" alt="Prisma"> Prisma. ORM для удобного управления базой данных, до этого только слышал про неё.
 </div>
 <div style="display: flex; align-items: center; gap: 5px">
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Logo-ubuntu_cof-orange-hex.svg/1200px-Logo-ubuntu_cof-orange-hex.svg.png" width="30" alt="nest js"> Ubuntu. Cамый прикол в том, что я купил сервер и поднял бэкенд с базой данных туда, используя Ubuntu. Ну и в целом понял, что таким заниматься не очень весело...
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Logo-ubuntu_cof-orange-hex.svg/1200px-Logo-ubuntu_cof-orange-hex.svg.png" width="30" alt="Ubuntu"> Ubuntu. Cамый прикол в том, что я купил сервер и поднял бэкенд с базой данных туда, используя Ubuntu. Ну и в целом понял, что таким заниматься не очень весело...
 </div>
 </div>
 
