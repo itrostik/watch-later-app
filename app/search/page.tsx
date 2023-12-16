@@ -43,7 +43,6 @@ export default function Search() {
   }
 
   function getReview(film: FilmType) {
-    console.log(film);
     if (film.reviews && film.reviews.length > 0) {
       return film.reviews
         .reduce((accum, number, index) => {

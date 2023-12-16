@@ -27,7 +27,6 @@ export default function Page() {
     const getFilm = async () => {
       const arrayId = pathname.split("/");
       const id = arrayId[arrayId.length - 1];
-      console.log(pathname);
       if (id) {
         const response = await axios.post(
           "https://watch-later.tw1.ru/api/film/getById",
@@ -85,7 +84,6 @@ export default function Page() {
       setActiveReview(review);
       const reviewsFilm = film?.reviews;
       reviewsFilm?.push(review);
-      console.log(film?.reviews, review);
       const updatedFilm = { ...film, reviews: reviewsFilm };
       const responseFilm = await axios.put(
         "https://watch-later.tw1.ru/api/film/update",
@@ -136,7 +134,6 @@ export default function Page() {
     router.push("/films");
   }
 
-  console.log(activeReview);
   return (
     <>
       <Header activeItem={activeItem} setActiveItem={setActiveItem} />

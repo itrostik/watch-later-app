@@ -36,7 +36,6 @@ export default function Films() {
   }, [defaultValue]);
 
   function getReview(film: FilmType) {
-    console.log(film);
     if (film.reviews && film.reviews.length > 0) {
       return film.reviews
         .reduce((accum, number, index) => {
@@ -112,9 +111,9 @@ export default function Films() {
                     className={styles.film}
                   >
                     <span className={styles.review}>
-                      {getReview(film.film) === undefined || 0
-                        ? "Нет оценок"
-                        : getReview(film.film)}
+                      {getReview(film.film) !== undefined
+                        ? getReview(film.film)
+                        : "Нет оценок"}
                     </span>
                     <img
                       src={film.film.posterUrl}

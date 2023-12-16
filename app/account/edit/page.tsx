@@ -88,7 +88,6 @@ export default function Account() {
         formData,
       );
       if (response.data) {
-        console.log(response.data);
         setImageUrl(`https://watch-later.tw1.ru${response.data[0].url}`);
       }
     } catch (error) {
