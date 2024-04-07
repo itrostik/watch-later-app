@@ -10,6 +10,14 @@
   gap: 50px;
 }
 
+.image{
+  object-fit: cover;
+  border-radius: 10px;
+  width: 500px;
+  height: 500px;
+  background: #DADADA;
+}
+
 .film {
   display: flex;
   gap: 20px;
@@ -19,13 +27,14 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  flex: 1 1 auto;
 }
 
 .name {
   color: #181818;
   font-size: 36px;
   font-weight: 700;
-  line-height: 20px; /* 55.556% */
+  line-height: 20px;
   letter-spacing: -0.17px;
 }
 
@@ -75,7 +84,6 @@
   color: #181818;
   font-size: 16px;
   line-height: 16px;
-  max-width: 400px;
   flex: 1 1 auto;
 }
 
@@ -83,6 +91,8 @@
   display: flex;
   gap: 5px;
   align-items: center;
+  flex-wrap: wrap;
+  max-width: 500px;
 }
 
 .genre {

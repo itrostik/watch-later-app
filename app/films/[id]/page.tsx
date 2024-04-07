@@ -29,7 +29,7 @@ export default function Page() {
       const id = arrayId[arrayId.length - 1];
       if (id) {
         const response = await axios.post(
-          "https://watch-later.tw1.ru/api/film/getById",
+          `${process.env.NEXT_PUBLIC_API_URL}/api/film/getById`,
           {
             id: +id,
           },
@@ -70,7 +70,7 @@ export default function Page() {
       });
     }
     const updatedUser = await axios.patch(
-      "https://watch-later.tw1.ru/api/users/film",
+      `${process.env.NEXT_PUBLIC_API_URL}/api/users/film`,
       {
         films: newUserFilms,
         email: user!.email,
@@ -86,7 +86,7 @@ export default function Page() {
       reviewsFilm?.push(review);
       const updatedFilm = { ...film, reviews: reviewsFilm };
       const responseFilm = await axios.put(
-        "https://watch-later.tw1.ru/api/film/update",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/film/update`,
         {
           name: updatedFilm.name,
           description: updatedFilm.description,
@@ -110,7 +110,7 @@ export default function Page() {
       });
 
       const updatedUser = await axios.patch(
-        "https://watch-later.tw1.ru/api/users/film",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/users/film`,
         {
           films: newUserFilms,
           email: user!.email,
@@ -122,7 +122,7 @@ export default function Page() {
 
   async function addFilm() {
     const updatedUser = await axios.patch(
-      "https://watch-later.tw1.ru/api/users",
+      `${process.env.NEXT_PUBLIC_API_URL}/api/users`,
       {
         film: film,
         email: user!.email,
@@ -139,9 +139,7 @@ export default function Page() {
       <Header activeItem={activeItem} setActiveItem={setActiveItem} />
       <div className={styles.container}>
         <div className={styles.film}>
-          <div className={styles.image}>
-            <Image src={film?.posterUrl!} alt={""} width={267} height={417} />
-          </div>
+          {film?.posterUrl ? <Image src={film.posterUrl} alt={"poster"} width={500} height={500} className={styles.image}/> : <div className={styles.image}></div>}
           <div className={styles.block}>
             <div className={styles.name}>{film?.name}</div>
             <div className={styles.info}>

@@ -14,7 +14,7 @@ module.exports = {
       },
       {
         protocol: "https",
-        hostname: "watch-later.tw1.ru",
+        hostname: "watch-later-backend.onrender.com",
         pathname: "/*/**",
       },
     ],

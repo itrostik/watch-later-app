@@ -45,7 +45,7 @@ export default function AddFilm() {
     setIsLoading(true);
     const getGenres = async () => {
       const response = await axios.get<GenreType[]>(
-        "https://watch-later.tw1.ru/api/genre",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/genre`,
       );
       setGenres(response.data);
       setIsLoading(false);
@@ -81,7 +81,7 @@ export default function AddFilm() {
       setIsSaving(false);
     } else {
       const addedFilm = await axios.post(
-        "https://watch-later.tw1.ru/api/film/add",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/film/add`,
         {
           name,
           description,
@@ -92,7 +92,7 @@ export default function AddFilm() {
         },
       );
       const updatedUser = await axios.patch(
-        "https://watch-later.tw1.ru/api/users",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/users`,
         {
           film: addedFilm.data,
           email: user!.email,
@@ -112,11 +112,11 @@ export default function AddFilm() {
       // @ts-ignore
       formData.append("image", event.target.files[0]);
       const response = await axios.post(
-        "https://watch-later.tw1.ru/api/file?folder=films",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/file?folder=films`,
         formData,
       );
       if (response.data) {
-        setPosterUrl(`https://watch-later.tw1.ru${response.data[0].url}`);
+        setPosterUrl(`${process.env.NEXT_PUBLIC_API_URL}${response.data[0].url}`);
       }
       clearErrors("posterUrl");
     } catch (error) {

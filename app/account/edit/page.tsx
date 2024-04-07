@@ -46,7 +46,7 @@ export default function Account() {
     setImageUrl(user?.avatarUrl);
     const getGenres = async () => {
       const response = await axios.get<GenreType[]>(
-        "https://watch-later.tw1.ru/api/genre",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/genre`,
       );
       setGenres(response.data);
       setIsLoading(false);
@@ -63,7 +63,7 @@ export default function Account() {
       genres.push(genre.value);
     });
     const updatedUser = await axios.put(
-      "https://watch-later.tw1.ru/api/users",
+      `${process.env.NEXT_PUBLIC_API_URL}/api/users`,
       {
         email: JSON.parse(localStorage.getItem("user")!).email,
         name,
@@ -84,11 +84,11 @@ export default function Account() {
       //@ts-ignore
       formData.append("image", event.target.files[0]);
       const response = await axios.post(
-        "https://watch-later.tw1.ru/api/file?folder=users",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/file?folder=users`,
         formData,
       );
       if (response.data) {
-        setImageUrl(`https://watch-later.tw1.ru${response.data[0].url}`);
+        setImageUrl(`${process.env.NEXT_PUBLIC_API_URL}${response.data[0].url}`);
       }
     } catch (error) {
       console.error("Error uploading image:", error);

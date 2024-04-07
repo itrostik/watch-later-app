@@ -32,7 +32,7 @@ export default function Login() {
     const email = data.email;
     try {
       const user = await axios.post(
-        "https://watch-later.tw1.ru/api/auth/login",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
         {
           email,
           password,
