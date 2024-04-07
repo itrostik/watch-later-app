@@ -9,6 +9,7 @@ import _ from "lodash";
 import { FilmType } from "@/types/filmType";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { Loader } from "@/components/Loader/Loader";
 
 export default function Search() {
   const [activeItem, setActiveItem] = useState("/search");
@@ -30,8 +31,8 @@ export default function Search() {
         name: name,
       },
     );
-    setIsLoading(false);
     setFilms(responseFilms.data);
+    setIsLoading(false);
   }
 
   function reset() {
@@ -85,40 +86,46 @@ export default function Search() {
             </svg>
           )}
         </label>
-        <div className={styles.films}>
-          {films.map((film) => {
-            return (
-              <Link href={`/films/${film.id}`} className={styles.film}>
-                <Image
-                  src={film.posterUrl}
-                  alt={"film"}
-                  width={60}
-                  height={90}
-                  className={styles.image}
-                />
-                <div className={styles.filmInfo}>
-                  <div className={styles.name}>{film.name}</div>
-                  <div className={styles.year}>{film.year}</div>
-                  <div className={styles.review}>
-                    {getReview(film) !== undefined
-                      ? getReview(film)
-                      : "Нет оценок"}
+        {!isLoading ? (
+          <div className={styles.films}>
+            {films.map((film) => {
+              return (
+                <Link href={`/films/${film.id}`} className={styles.film}>
+                  <Image
+                    src={film.posterUrl}
+                    alt={"film"}
+                    width={60}
+                    height={90}
+                    className={styles.image}
+                  />
+                  <div className={styles.filmInfo}>
+                    <div className={styles.name}>{film.name}</div>
+                    <div className={styles.year}>{film.year}</div>
+                    <div className={styles.review}>
+                      {getReview(film) !== undefined
+                        ? getReview(film)
+                        : "Нет оценок"}
+                    </div>
                   </div>
+                </Link>
+              );
+            })}
+            {!isEmpty && !isLoading && films.length === 0 ? (
+              <div className={styles.filmAdded}>
+                <div className={styles.blockEmpty} />
+                <div className={styles.filmInfo}>
+                  <div className={styles.name}>Фильм не найден</div>
                 </div>
-              </Link>
-            );
-          })}
-          {!isEmpty && !isLoading && films.length === 0 ? (
-            <div className={styles.filmAdded}>
-              <div className={styles.blockEmpty} />
-              <div className={styles.filmInfo}>
-                <div className={styles.name}>Фильм не найден</div>
               </div>
-            </div>
-          ) : (
-            ""
-          )}
-        </div>
+            ) : (
+              ""
+            )}
+          </div>
+        ) : (
+          <div className={styles.container}>
+            <Loader />
+          </div>
+        )}
       </div>
     </div>
   );

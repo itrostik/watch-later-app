@@ -88,19 +88,7 @@
   letter-spacing: -0.078px;
 }
 
-.loader {
-  width: 40px;
-  height: 40px;
-  animation: 7s rotate infinite;
-  @keyframes rotate {
-    0% {
-      transform: rotate(0);
-    }
-    100% {
-      transform: rotate(720deg);
-    }
-  }
-}
+
 
 
 @media (max-width: 375px) {
